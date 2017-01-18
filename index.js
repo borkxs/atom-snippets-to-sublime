@@ -36,8 +36,20 @@ function convertAtomToSublime(parsedCson) {
     // console.log("fileSuffix", fileSuffix)
     each(fileType, (snippet, snippetName) => {
       // console.log("snippetName", snippet.prefix)
-      const newTemplate = sublimeTemplate(parseVariables(snippet.body), snippet.prefix, fileSuffix.slice(1))
-      const fileName = path.resolve("out/", process.argv[3] + "-" + kebabCase(snippetName) + ".sublime-snippet")
+      const newTemplate = sublimeTemplate(
+        parseVariables(snippet.body),
+        snippet.prefix,
+        fileSuffix.slice(1)
+      )
+      const fileName = path.resolve(
+        "out/",
+        process.argv[3]
+          + "-"
+          + kebabCase(fileSuffix)
+          + "-"
+          + kebabCase(snippetName)
+          + ".sublime-snippet"
+      )
       // console.log("fileName", fileName)
       fs.writeFile(fileName, newTemplate, err => console.error(err))
     })
